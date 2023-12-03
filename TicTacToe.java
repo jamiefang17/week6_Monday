@@ -4,6 +4,9 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 public class TicTacToe extends TestJFrame {
@@ -13,6 +16,8 @@ public class TicTacToe extends TestJFrame {
 
     public TicTacToe() {
         super();
+
+        setContentPane(panel);
 
         panel.setLayout(new GridLayout(3, 3));
         Font font = new Font("SansSerif", Font.BOLD, 70);
@@ -25,8 +30,20 @@ public class TicTacToe extends TestJFrame {
             panel.add(button);
             buttons.add(button);
         }
+        JMenuBar menuBar = new JMenuBar();
+        // Create a JMenu
+        JMenu menu = new JMenu("Game Options");
+        // Add JMenu to JMenuBar
+        menuBar.add(menu);
+        // Create a JMenuItem
+        JMenuItem menuItem = new JMenuItem("Reset Game");
+        menuItem.addActionListener(e -> ResetGame());
+        // Add JMenuItem to JMenu
+        menu.add(menuItem);
+        setJMenuBar(menuBar);
 
         setContentPane(panel);
+        setVisible(true);
     }
 
     private void ButtonClicked(ActionEvent e){
@@ -57,6 +74,16 @@ public class TicTacToe extends TestJFrame {
             currentPlayer = "o";
         } else {
             currentPlayer = "x";
+        }
+    }
+
+    public void ResetGame() {
+        currentPlayer = "";
+        for(int i = 0; i < 9;i++){
+            JButton button = buttons.get(i);
+            button.setEnabled(true);
+            button.setText("");;
+            button.setBackground(null);
         }
     }
 
